@@ -7,6 +7,7 @@ protocol SignInViewModelDelegate {
 class SignInViewModel {
     
     var delegate: SignInViewModelDelegate?
+    var coordinator: SignInCoordinator?
     
     var state:SignInState = .none {
         didSet {
@@ -19,6 +20,9 @@ class SignInViewModel {
         print("logando...")
         
         self.state = .error("Usuario nao encontrado")
-
+    }
+    
+    func goToCreateAccount(){
+        coordinator!.createAccount()
     }
 }

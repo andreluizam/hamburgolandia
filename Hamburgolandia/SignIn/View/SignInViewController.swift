@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SignInViewController: UIViewController, SignInViewModelDelegate {
+class SignInViewController: UIViewController {
     
     let email: UITextField = {
         let ed = UITextField()
@@ -25,14 +25,25 @@ class SignInViewController: UIViewController, SignInViewModelDelegate {
         return ed
     }()
     
-    lazy var btnEnviar: UIButton = {
+    lazy var btnSend: UIButton = {
         let btn = UIButton()
         btn.setTitle("Enviar", for: .normal)
         btn.setTitleColor(.black, for: .normal)
         btn.backgroundColor = .yellow
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.addTarget(self, action: #selector(clicar), for: .touchUpInside)
-
+        
+        return btn
+    }()
+    
+    lazy var btnCreateAccount: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("Create account", for: .normal)
+        btn.setTitleColor(.black, for: .normal)
+        btn.backgroundColor = .yellow
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.addTarget(self, action: #selector(createDidTap), for: .touchUpInside)
+        
         return btn
     }()
     
@@ -45,11 +56,14 @@ class SignInViewController: UIViewController, SignInViewModelDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .green
+        view.backgroundColor = .systemBackground
         
-        view.addSubview(email) 
+        navigationItem.title = ""
+        
+        view.addSubview(email)
         view.addSubview(password)
-        view.addSubview(btnEnviar)
+        view.addSubview(btnSend)
+        view.addSubview(btnCreateAccount)
         
         let emailConstraints = [
             
@@ -60,7 +74,7 @@ class SignInViewController: UIViewController, SignInViewModelDelegate {
             email.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
             // O CAMPO EMAIL VAI SER CENTRALIZADO COM BASE NO CENTRO DA TELA
-            email.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            email.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100),
             
             // DEFINE A ALTURA DO CAMPO
             email.heightAnchor.constraint(equalToConstant: 50.0)
@@ -83,35 +97,68 @@ class SignInViewController: UIViewController, SignInViewModelDelegate {
             password.heightAnchor.constraint(equalToConstant: 50.0)
         ]
         
-        let btnConstraints = [
+        let btnSendConstraints = [
             
             // O CAMPO BOTAO VAI SER PUXADO PARA A ESQUERDA DA TELA
-            btnEnviar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            btnSend.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             
             // O CAMPO BOTAO VAI SER PUXADO PARA A DIREITA DA TELA
-            btnEnviar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            btnSend.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
             // O TOPO DO CAMPO SENHA, VAI SER RENTE AO BOTTOM ( PE ) DO CAMPO EMAIL
             // O CONSANT: 10.0, DEFINE O ESPACAMENTO ENTRE ELES
             
-            btnEnviar.topAnchor.constraint(equalTo: password.bottomAnchor, constant:10.0),
+            btnSend.topAnchor.constraint(equalTo: password.bottomAnchor, constant:10.0),
             
             // DEFINE A ALTURA DO BOTAO
-            btnEnviar.heightAnchor.constraint(equalToConstant: 50.0)
+            btnSend.heightAnchor.constraint(equalToConstant: 50.0)
+        ]
+        
+        let btnCreateAccountConstraints = [
+            btnCreateAccount.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            btnCreateAccount.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            btnCreateAccount.topAnchor.constraint(equalTo: btnSend.bottomAnchor, constant:10.0),
+            btnCreateAccount.heightAnchor.constraint(equalToConstant: 50.0)
         ]
         
         // Ativo as constraints que criei acima
-            
+        
         NSLayoutConstraint.activate(emailConstraints)
         NSLayoutConstraint.activate(passwordConstraints)
-        NSLayoutConstraint.activate(btnConstraints)
+        NSLayoutConstraint.activate(btnSendConstraints)
+        NSLayoutConstraint.activate(btnCreateAccountConstraints)
     }
     
     @objc func clicar (_ sender: UIButton){
         viewModel.sendLogin()
     }
     
+    @objc func createDidTap(_ sender: UIButton){
+        viewModel.goToCreateAccount()
+    }
+}
+
+extension SignInViewController: SignInViewModelDelegate {
     func viewModelDidSet (state : SignInState) {
-        print("o estado atual do state é \(state)")
+        switch(state){
+        case .none:
+            break
+        case .loading:
+            // progress bar
+            break
+        case .goToHome:
+            // pag princiapl
+            break
+        case .error(let msg):
+            
+            let alert = UIAlertController(title: "Error", message: msg, preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            
+            self.present(alert, animated: true)
+            
+            break
+            
+        }
     }
 }

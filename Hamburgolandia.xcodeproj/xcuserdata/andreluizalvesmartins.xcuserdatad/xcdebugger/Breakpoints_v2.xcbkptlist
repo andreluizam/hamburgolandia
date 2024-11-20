@@ -7,24 +7,8 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2B90DF12-13B8-4822-9A9D-C81945BBC0F6"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Hamburgolandia/SignIn/View/SignInViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "viewModelDidSet(state:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "5C78983C-152D-4008-84ED-AF9D1126988B"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hamburgolandia/ViewModel/SignInViewModel.swift"
@@ -34,85 +18,13 @@
             endingLineNumber = "11"
             landmarkName = "state"
             landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "5C78983C-152D-4008-84ED-AF9D1126988B - f9463dd71b01b6ea"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Hamburgolandia.SignInViewModel.state.getter : Hamburgolandia.SignInState"
-                  moduleName = "Hamburgolandia.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andreluizalvesmartins/Documents/Development/Projetcs/Hamburgolandia/Hamburgolandia/ViewModel/SignInViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0">
-               </Location>
-               <Location
-                  uuid = "5C78983C-152D-4008-84ED-AF9D1126988B - c415240a02ebe481"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Hamburgolandia.SignInViewModel.state.setter : Hamburgolandia.SignInState"
-                  moduleName = "Hamburgolandia.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andreluizalvesmartins/Documents/Development/Projetcs/Hamburgolandia/Hamburgolandia/ViewModel/SignInViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "11"
-                  endingLineNumber = "11">
-               </Location>
-               <Location
-                  uuid = "5C78983C-152D-4008-84ED-AF9D1126988B - f6ad4f22af47e176"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Hamburgolandia.SignInViewModel.state.modify : Hamburgolandia.SignInState"
-                  moduleName = "Hamburgolandia.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andreluizalvesmartins/Documents/Development/Projetcs/Hamburgolandia/Hamburgolandia/ViewModel/SignInViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "11"
-                  endingLineNumber = "11">
-               </Location>
-               <Location
-                  uuid = "5C78983C-152D-4008-84ED-AF9D1126988B - 580a1cf88c31331d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Hamburgolandia.SignInViewModel.state.modify : Hamburgolandia.SignInState with unmangled suffix &quot;.resume.0&quot;"
-                  moduleName = "Hamburgolandia.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///%3Ccompiler-generated%3E"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0">
-               </Location>
-               <Location
-                  uuid = "5C78983C-152D-4008-84ED-AF9D1126988B - eb867fd69cac0ef"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Hamburgolandia.SignInViewModel.init() -&gt; Hamburgolandia.SignInViewModel"
-                  moduleName = "Hamburgolandia.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andreluizalvesmartins/Documents/Development/Projetcs/Hamburgolandia/Hamburgolandia/ViewModel/SignInViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "11"
-                  endingLineNumber = "11">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "88C64613-16C0-4047-8C49-1A484D894617"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hamburgolandia/ViewModel/SignInViewModel.swift"
@@ -128,14 +40,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "C580369E-5D0E-4457-80FC-1A3F9179D4BA"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hamburgolandia/SignIn/View/SignInViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
             landmarkName = "clicar(_:)"
             landmarkType = "7">
          </BreakpointContent>
