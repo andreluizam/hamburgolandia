@@ -9,18 +9,23 @@ import UIKit
 
 class SignInViewController: UIViewController {
     
-    let email: UITextField = {
+    lazy var email: UITextField = {
         let ed = UITextField()
         ed.backgroundColor = .red
         ed.placeholder = "Entre com o seu e-mail"
+        ed.keyboardType = .emailAddress
+        ed.returnKeyType = .next
+        ed.delegate = self
         ed.translatesAutoresizingMaskIntoConstraints = false
         return ed
     }()
     
-    let password: UITextField = {
+    lazy var password: UITextField = {
         let ed = UITextField()
         ed.backgroundColor = .systemGray
         ed.placeholder = "Entre com a sua senha"
+        ed.returnKeyType = .done
+        ed.delegate = self
         ed.translatesAutoresizingMaskIntoConstraints = false
         return ed
     }()
@@ -129,12 +134,37 @@ class SignInViewController: UIViewController {
         NSLayoutConstraint.activate(btnCreateAccountConstraints)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard(_ view: UITapGestureRecognizer){
+        self.view.endEditing(true)
+    }
+    
     @objc func clicar (_ sender: UIButton){
         viewModel.sendLogin()
     }
     
     @objc func createDidTap(_ sender: UIButton){
         viewModel.goToCreateAccount()
+    }
+}
+
+extension SignInViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if(textField.returnKeyType == .done) {
+            self.view.endEditing(true)
+            
+            return false
+        }
+        else{
+            password.becomeFirstResponder()
+        }
+        return false
     }
 }
 
@@ -147,7 +177,7 @@ extension SignInViewController: SignInViewModelDelegate {
             // progress bar
             break
         case .goToHome:
-            // pag princiapl
+            viewModel.goToHome()
             break
         case .error(let msg):
             

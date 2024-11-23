@@ -19,10 +19,16 @@ class SignInViewModel {
         self.state = .loading
         print("logando...")
         
-        self.state = .error("Usuario nao encontrado")
+        self.state = .goToHome
+        
+       // self.state = .error("Usuario nao encontrado")
     }
     
     func goToCreateAccount(){
         coordinator!.createAccount()
+    }
+    
+    func goToHome(){
+        coordinator!.goToHome()
     }
 }

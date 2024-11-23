@@ -107,6 +107,17 @@ class CreateAccountViewController : UIViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard(_ view: UITapGestureRecognizer){
+        self.view.endEditing(true)
+    }
+    
     @objc func send() {
         viewModel.sendDataAccount()
     }
@@ -121,7 +132,7 @@ extension CreateAccountViewController: CreateAccountViewModelDelegate {
             // progress bar
             break
         case .goToHome:
-            // pag princiapl
+            viewModel.goToHome()
             break
         case .error(let msg):
             
@@ -133,5 +144,6 @@ extension CreateAccountViewController: CreateAccountViewModelDelegate {
             
             break
             
-        }    }
+        }
+    }
 }

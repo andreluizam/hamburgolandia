@@ -17,6 +17,11 @@ class CreateAccountViewModel {
         self.state = .loading
         print("criando conta...")
         
-        self.state = .error("email registrado ja encontrado")
+        self.state = .goToHome
+        //self.state = .error("email registrado ja encontrado")
+    }
+    
+    func goToHome() {
+        self.coordinator?.goToHome()
     }
 }

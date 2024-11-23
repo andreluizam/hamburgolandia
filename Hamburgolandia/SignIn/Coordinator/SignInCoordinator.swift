@@ -26,6 +26,12 @@ class SignInCoordinator {
     
     func createAccount(){
         let createAccountCoordinator = CreateAccountCoordinator(navigationController: self.navigationController!)
+        createAccountCoordinator.parentCoordinator = self
         createAccountCoordinator.start()
+    }
+    
+    func goToHome(){
+        let homeCoordinator = HomeCoordinator(window: window)
+        homeCoordinator.start()
     }
 }
