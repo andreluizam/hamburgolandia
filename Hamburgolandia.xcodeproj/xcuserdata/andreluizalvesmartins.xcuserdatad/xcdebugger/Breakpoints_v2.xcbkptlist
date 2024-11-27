@@ -46,9 +46,9 @@
             filePath = "Hamburgolandia/SignIn/View/SignInViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
-            landmarkName = "clicar(_:)"
+            startingLineNumber = "185"
+            endingLineNumber = "185"
+            landmarkName = "viewModelDidSet(state:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -62,8 +62,8 @@
             filePath = "Hamburgolandia/CreateAccount/View/CreateAccountViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
             landmarkName = "viewModelDidSet(state:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -142,8 +142,8 @@
             filePath = "Hamburgolandia/CreateAccount/View/CreateAccountViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
             landmarkName = "viewModelDidSet(state:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -193,6 +193,22 @@
             startingLineNumber = "25"
             endingLineNumber = "25"
             landmarkName = "goToHome()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5A9B811B-BBDD-4600-9EFC-C0491C96BA23"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hamburgolandia/CreateAccount/View/CreateAccountViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "onKeyboardChanged(_:height:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

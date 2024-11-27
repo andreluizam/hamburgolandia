@@ -6,32 +6,60 @@ class CreateAccountViewController : UIViewController {
     
     let name: UITextField = {
         let ed = UITextField()
-        ed.backgroundColor = .gray
+        ed.backgroundColor = .white
+        ed.borderStyle = .roundedRect
         ed.placeholder = "Entre com o seu nome"
+        
+        ed.attributedPlaceholder = NSAttributedString(
+            string: "Entre com o seu nome",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
+        )
+        ed.textColor = .black
         ed.translatesAutoresizingMaskIntoConstraints = false
         return ed
     }()
     
     let email: UITextField = {
         let ed = UITextField()
-        ed.backgroundColor = .gray
+        ed.backgroundColor = .white
+        ed.borderStyle = .roundedRect
         ed.placeholder = "Entre com o seu e-mail"
+        
+        ed.attributedPlaceholder = NSAttributedString(
+            string: "Entre com o seu e-mail",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
+        )
+        ed.textColor = .black
         ed.translatesAutoresizingMaskIntoConstraints = false
         return ed
     }()
     
     let password: UITextField = {
         let ed = UITextField()
-        ed.backgroundColor = .gray
+        ed.backgroundColor = .white
+        ed.borderStyle = .roundedRect
         ed.placeholder = "Entre com a sua senha"
+        
+        ed.attributedPlaceholder = NSAttributedString(
+            string: "Entre com a sua senha",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
+        )
+        
+        ed.textColor = .black
         ed.translatesAutoresizingMaskIntoConstraints = false
         return ed
     }()
     
     let password2: UITextField = {
         let ed = UITextField()
-        ed.backgroundColor = .gray
+        ed.backgroundColor = .white
+        ed.borderStyle = .roundedRect
         ed.placeholder = "Confirme sua senha"
+        ed.attributedPlaceholder = NSAttributedString(
+            string: "Confirme sua senha",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
+        )
+        ed.textColor = .black
         ed.translatesAutoresizingMaskIntoConstraints = false
         return ed
     }()
@@ -57,6 +85,8 @@ class CreateAccountViewController : UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
+        
+        navigationItem.title = "Criar conta"
         
         view.addSubview(name)
         view.addSubview(email)
@@ -105,6 +135,39 @@ class CreateAccountViewController : UIViewController {
         NSLayoutConstraint.activate(password2Constraints)
         NSLayoutConstraint.activate(btnSendConstraints)
         
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(onKeyboardNotification),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(onKeyboardNotification),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+    
+    @objc func onKeyboardNotification(notification: Notification) {
+        let visible = notification.name == UIResponder.keyboardWillShowNotification
+        
+        let keyboardFrame = visible
+        ? UIResponder.keyboardFrameEndUserInfoKey
+        : UIResponder.keyboardFrameBeginUserInfoKey
+        
+        if let keyboardSize = (notification.userInfo?[keyboardFrame] as? NSValue)?.cgRectValue {
+            onKeyboardChanged(visible, height: keyboardSize.height)
+        }
+    }
+    
+    func onKeyboardChanged(_ visible: Bool, height: CGFloat){
+        if(visible){
+            UIView.animate(withDuration: 0.3) {
+                self.view.frame.origin.y = -height / 3
+            }
+        } else {
+            UIView.animate(withDuration: 0.3) {
+                self.view.frame.origin.y = 0
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -63,7 +63,7 @@ class SignInViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
         
-        navigationItem.title = ""
+        navigationItem.title = "Login"
         
         view.addSubview(email)
         view.addSubview(password)
