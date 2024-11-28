@@ -6,7 +6,6 @@ class CreateAccountViewController : UIViewController {
     
     let name: UITextField = {
         let ed = UITextField()
-        ed.backgroundColor = .white
         ed.borderStyle = .roundedRect
         ed.placeholder = "Entre com o seu nome"
         
@@ -21,7 +20,6 @@ class CreateAccountViewController : UIViewController {
     
     let email: UITextField = {
         let ed = UITextField()
-        ed.backgroundColor = .white
         ed.borderStyle = .roundedRect
         ed.placeholder = "Entre com o seu e-mail"
         
@@ -36,7 +34,6 @@ class CreateAccountViewController : UIViewController {
     
     let password: UITextField = {
         let ed = UITextField()
-        ed.backgroundColor = .white
         ed.borderStyle = .roundedRect
         ed.placeholder = "Entre com a sua senha"
         
@@ -52,7 +49,6 @@ class CreateAccountViewController : UIViewController {
     
     let password2: UITextField = {
         let ed = UITextField()
-        ed.backgroundColor = .white
         ed.borderStyle = .roundedRect
         ed.placeholder = "Confirme sua senha"
         ed.attributedPlaceholder = NSAttributedString(
@@ -64,13 +60,12 @@ class CreateAccountViewController : UIViewController {
         return ed
     }()
     
-    lazy var btnSend: UIButton = {
-        let btn = UIButton()
-        btn.setTitle("Enviar", for: .normal)
-        btn.setTitleColor(.black, for: .normal)
-        btn.backgroundColor = .yellow
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.addTarget(self, action: #selector(send), for: .touchUpInside)
+    lazy var btnSend: LoadingButton = {
+        let btn = LoadingButton()
+        btn.title = "Criar"
+        btn.setTitleColor = .black
+        btn.backgroundColor = .red
+        btn.addTarget(self, action: #selector(send))
         
         return btn
     }()

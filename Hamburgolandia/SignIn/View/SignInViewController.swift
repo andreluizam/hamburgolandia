@@ -9,10 +9,20 @@ import UIKit
 
 class SignInViewController: UIViewController {
     
+    let lblTitle: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "Entrar"
+        lbl.textAlignment = .left
+        lbl.textColor = .label
+        lbl.font = UIFont.systemFont(ofSize: 32, weight: .bold)
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
+    
     lazy var email: UITextField = {
         let ed = UITextField()
-        ed.backgroundColor = .red
         ed.placeholder = "Entre com o seu e-mail"
+        ed.borderStyle = .roundedRect
         ed.keyboardType = .emailAddress
         ed.returnKeyType = .next
         ed.delegate = self
@@ -22,32 +32,29 @@ class SignInViewController: UIViewController {
     
     lazy var password: UITextField = {
         let ed = UITextField()
-        ed.backgroundColor = .systemGray
         ed.placeholder = "Entre com a sua senha"
+        ed.borderStyle = .roundedRect
         ed.returnKeyType = .done
         ed.delegate = self
         ed.translatesAutoresizingMaskIntoConstraints = false
         return ed
     }()
     
-    lazy var btnSend: UIButton = {
-        let btn = UIButton()
-        btn.setTitle("Enviar", for: .normal)
-        btn.setTitleColor(.black, for: .normal)
-        btn.backgroundColor = .yellow
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.addTarget(self, action: #selector(clicar), for: .touchUpInside)
+    lazy var btnSend: LoadingButton = {
+        let btn = LoadingButton()
+        btn.title = "Enviar"
+        btn.setTitleColor = .black
+        btn.backgroundColor = .red
+        btn.addTarget(self, action: #selector(clicar))
         
         return btn
     }()
     
-    lazy var btnCreateAccount: UIButton = {
-        let btn = UIButton()
-        btn.setTitle("Create account", for: .normal)
-        btn.setTitleColor(.black, for: .normal)
-        btn.backgroundColor = .yellow
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.addTarget(self, action: #selector(createDidTap), for: .touchUpInside)
+    lazy var btnCreateAccount: LoadingButton = {
+        let btn = LoadingButton()
+        btn.title = "Create account"
+        btn.setTitleColor = .label
+        btn.addTarget(self, action: #selector(createDidTap))
         
         return btn
     }()
@@ -65,10 +72,17 @@ class SignInViewController: UIViewController {
         
         navigationItem.title = "Login"
         
+        view.addSubview(lblTitle)
         view.addSubview(email)
         view.addSubview(password)
         view.addSubview(btnSend)
         view.addSubview(btnCreateAccount)
+        
+        let titleConstraints = [
+            lblTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            lblTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            lblTitle.bottomAnchor.constraint(equalTo: email.topAnchor)
+        ]
         
         let emailConstraints = [
             
@@ -128,6 +142,7 @@ class SignInViewController: UIViewController {
         
         // Ativo as constraints que criei acima
         
+        NSLayoutConstraint.activate(titleConstraints)
         NSLayoutConstraint.activate(emailConstraints)
         NSLayoutConstraint.activate(passwordConstraints)
         NSLayoutConstraint.activate(btnSendConstraints)
@@ -174,7 +189,7 @@ extension SignInViewController: SignInViewModelDelegate {
         case .none:
             break
         case .loading:
-            // progress bar
+            btnSend.startLoading(true)
             break
         case .goToHome:
             viewModel.goToHome()
@@ -186,6 +201,8 @@ extension SignInViewController: SignInViewModelDelegate {
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             
             self.present(alert, animated: true)
+            
+            btnSend.startLoading(false)
             
             break
             

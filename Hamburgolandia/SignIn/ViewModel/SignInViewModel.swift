@@ -1,8 +1,8 @@
-
 protocol SignInViewModelDelegate {
     func viewModelDidSet (state : SignInState)
 }
 
+import Foundation
 
 class SignInViewModel {
     
@@ -19,9 +19,13 @@ class SignInViewModel {
         self.state = .loading
         print("logando...")
         
-        self.state = .goToHome
-        
-       // self.state = .error("Usuario nao encontrado")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            //self.state = .goToHome
+            self.state = .error("Usuario nao encontrado")
+
+        }
+
+        //self.state = .error("Usuario nao encontrado")
     }
     
     func goToCreateAccount(){
