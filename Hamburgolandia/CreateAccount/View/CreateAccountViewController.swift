@@ -4,6 +4,22 @@ import Foundation
 
 class CreateAccountViewController : UIViewController {
     
+    let containerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let lblTitle: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "Criar conta"
+        lbl.textAlignment = .left
+        lbl.textColor = .label
+        lbl.font = UIFont.systemFont(ofSize: 32, weight: .bold)
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
+    
     let name: UITextField = {
         let ed = UITextField()
         ed.borderStyle = .roundedRect
@@ -63,8 +79,9 @@ class CreateAccountViewController : UIViewController {
     lazy var btnSend: LoadingButton = {
         let btn = LoadingButton()
         btn.title = "Criar"
-        btn.setTitleColor = .black
+        btn.setTitleColor = .white
         btn.backgroundColor = .red
+        btn.layer.cornerRadius = 5
         btn.addTarget(self, action: #selector(send))
         
         return btn
@@ -80,19 +97,33 @@ class CreateAccountViewController : UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
+                
+        view.addSubview(containerView)
         
-        navigationItem.title = "Criar conta"
+        containerView.addSubview(lblTitle)
+        containerView.addSubview(name)
+        containerView.addSubview(email)
+        containerView.addSubview(password)
+        containerView.addSubview(password2)
+        containerView.addSubview(btnSend)
         
-        view.addSubview(name)
-        view.addSubview(email)
-        view.addSubview(password)
-        view.addSubview(password2)
-        view.addSubview(btnSend)
+        let containerConstraint = [
+            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            containerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
+            containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50)
+        ]
+        
+        let lblTitleConstraints = [
+            lblTitle.bottomAnchor.constraint(equalTo: name.topAnchor, constant: -10.0),
+            lblTitle.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            lblTitle.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
+        ]
         
         let nameConstraints = [
-            name.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            name.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            name.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100),
+            name.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            name.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            name.topAnchor.constraint(equalTo: view.topAnchor, constant: 180),
             name.heightAnchor.constraint(equalToConstant: 50.0)
         ]
         
@@ -124,6 +155,8 @@ class CreateAccountViewController : UIViewController {
             btnSend.heightAnchor.constraint(equalToConstant: 50.0)
         ]
         
+        NSLayoutConstraint.activate(containerConstraint)
+        NSLayoutConstraint.activate(lblTitleConstraints)
         NSLayoutConstraint.activate(nameConstraints)
         NSLayoutConstraint.activate(emailConstraints)
         NSLayoutConstraint.activate(passwordConstraints)
@@ -142,15 +175,15 @@ class CreateAccountViewController : UIViewController {
     }
     
     @objc func onKeyboardNotification(notification: Notification) {
-        let visible = notification.name == UIResponder.keyboardWillShowNotification
-        
-        let keyboardFrame = visible
-        ? UIResponder.keyboardFrameEndUserInfoKey
-        : UIResponder.keyboardFrameBeginUserInfoKey
-        
-        if let keyboardSize = (notification.userInfo?[keyboardFrame] as? NSValue)?.cgRectValue {
-            onKeyboardChanged(visible, height: keyboardSize.height)
-        }
+        //let visible = notification.name == UIResponder.keyboardWillShowNotification
+        //
+        //let keyboardFrame = visible
+        //? UIResponder.keyboardFrameEndUserInfoKey
+        //: UIResponder.keyboardFrameBeginUserInfoKey
+        //
+        //if let keyboardSize = (notification.userInfo?[keyboardFrame] as? NSValue)?.cgRectValue {
+        //    onKeyboardChanged(visible, height: keyboardSize.height)
+        //}
     }
     
     func onKeyboardChanged(_ visible: Bool, height: CGFloat){

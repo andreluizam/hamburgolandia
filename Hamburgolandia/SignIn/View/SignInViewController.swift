@@ -9,6 +9,12 @@ import UIKit
 
 class SignInViewController: UIViewController {
     
+    let containerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     let lblTitle: UILabel = {
         let lbl = UILabel()
         lbl.text = "Entrar"
@@ -22,6 +28,12 @@ class SignInViewController: UIViewController {
     lazy var email: UITextField = {
         let ed = UITextField()
         ed.placeholder = "Entre com o seu e-mail"
+        
+        ed.attributedPlaceholder = NSAttributedString(
+            string: "Entre com a seu e-mail",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
+        )
+        
         ed.borderStyle = .roundedRect
         ed.keyboardType = .emailAddress
         ed.returnKeyType = .next
@@ -33,6 +45,12 @@ class SignInViewController: UIViewController {
     lazy var password: UITextField = {
         let ed = UITextField()
         ed.placeholder = "Entre com a sua senha"
+        
+        ed.attributedPlaceholder = NSAttributedString(
+            string: "Entre com a sua senha",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
+        )
+        
         ed.borderStyle = .roundedRect
         ed.returnKeyType = .done
         ed.delegate = self
@@ -43,8 +61,9 @@ class SignInViewController: UIViewController {
     lazy var btnSend: LoadingButton = {
         let btn = LoadingButton()
         btn.title = "Enviar"
-        btn.setTitleColor = .black
+        btn.setTitleColor = .white
         btn.backgroundColor = .red
+        btn.layer.cornerRadius = 5
         btn.addTarget(self, action: #selector(clicar))
         
         return btn
@@ -52,11 +71,62 @@ class SignInViewController: UIViewController {
     
     lazy var btnCreateAccount: LoadingButton = {
         let btn = LoadingButton()
-        btn.title = "Create account"
-        btn.setTitleColor = .label
+        
+        let fullText = "Não possui uma conta? Crie uma agora"
+        
+        let attributedString = NSMutableAttributedString(string: fullText)
+        
+        let range = (fullText as NSString).range(of: "Crie uma agora")
+        attributedString.addAttribute(.foregroundColor, value: UIColor.red, range: range)
+        
+        btn.button.setAttributedTitle(attributedString, for: .normal)
+        
         btn.addTarget(self, action: #selector(createDidTap))
         
         return btn
+    }()
+    
+    lazy var btnGoogle: LoadingButton = {
+        let btn = LoadingButton()
+        btn.title = "Continuar com o Google"
+        btn.setTitleColor = .black
+        btn.backgroundColor = .white
+        btn.layer.borderColor = UIColor.lightGray.cgColor
+        btn.layer.borderWidth = 1
+        btn.layer.cornerRadius = 5
+        
+        return btn
+    }()
+
+    let containerLine: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        return view
+    }()
+    
+    let leftLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let rightLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let lblOr: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "OU"
+        lbl.textColor = .darkGray
+        lbl.textAlignment = .center
+        lbl.font = .systemFont(ofSize: 18, weight: .semibold)
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
     }()
     
     var viewModel : SignInViewModel! {
@@ -70,30 +140,45 @@ class SignInViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
         
-        navigationItem.title = "Login"
+        navigationItem.title = ""
         
-        view.addSubview(lblTitle)
-        view.addSubview(email)
-        view.addSubview(password)
-        view.addSubview(btnSend)
-        view.addSubview(btnCreateAccount)
+        view.addSubview(containerView)
+        
+        containerView.addSubview(lblTitle)
+        containerView.addSubview(email)
+        containerView.addSubview(password)
+        containerView.addSubview(btnSend)
+        containerView.addSubview(btnCreateAccount)
+        containerView.addSubview(btnGoogle)
+        
+        containerView.addSubview(containerLine)
+        
+        containerLine.addSubview(leftLine)
+        containerLine.addSubview(rightLine)
+        containerLine.addSubview(lblOr)
+        
+        let containerConstraint = [
+            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            containerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
+            containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50)
+        ]
         
         let titleConstraints = [
-            lblTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            lblTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            lblTitle.bottomAnchor.constraint(equalTo: email.topAnchor)
+            lblTitle.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            lblTitle.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            lblTitle.bottomAnchor.constraint(equalTo: email.topAnchor, constant: -10.0)
         ]
         
         let emailConstraints = [
             
             // O CAMPO EMAIL VAI SER PUXADO PARA A ESQUERDA DA TELA
-            email.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            email.leadingAnchor.constraint(equalTo: lblTitle.leadingAnchor),
             
             // O CAMPO EMAIL VAI SER PUXADO PARA A DIREITA DA TELA
-            email.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            email.trailingAnchor.constraint(equalTo: lblTitle.trailingAnchor),
             
-            // O CAMPO EMAIL VAI SER CENTRALIZADO COM BASE NO CENTRO DA TELA
-            email.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100),
+            email.topAnchor.constraint(equalTo: view.topAnchor, constant: 180),
             
             // DEFINE A ALTURA DO CAMPO
             email.heightAnchor.constraint(equalToConstant: 50.0)
@@ -119,10 +204,10 @@ class SignInViewController: UIViewController {
         let btnSendConstraints = [
             
             // O CAMPO BOTAO VAI SER PUXADO PARA A ESQUERDA DA TELA
-            btnSend.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            btnSend.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             
             // O CAMPO BOTAO VAI SER PUXADO PARA A DIREITA DA TELA
-            btnSend.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            btnSend.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             
             // O TOPO DO CAMPO SENHA, VAI SER RENTE AO BOTTOM ( PE ) DO CAMPO EMAIL
             // O CONSANT: 10.0, DEFINE O ESPACAMENTO ENTRE ELES
@@ -134,19 +219,63 @@ class SignInViewController: UIViewController {
         ]
         
         let btnCreateAccountConstraints = [
-            btnCreateAccount.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            btnCreateAccount.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            btnCreateAccount.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            btnCreateAccount.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             btnCreateAccount.topAnchor.constraint(equalTo: btnSend.bottomAnchor, constant:10.0),
             btnCreateAccount.heightAnchor.constraint(equalToConstant: 50.0)
         ]
         
+        let containerLineConstraints = [
+            containerLine.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            containerLine.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            containerLine.topAnchor.constraint(equalTo: btnCreateAccount.bottomAnchor),
+            containerLine.heightAnchor.constraint(equalToConstant: 50.0)
+        ]
+        
+        let leftLineConstraints = [
+            leftLine.leadingAnchor.constraint(equalTo: containerLine.leadingAnchor),
+            leftLine.trailingAnchor.constraint(equalTo: lblOr.leadingAnchor,constant: -10),
+            
+            leftLine.centerYAnchor.constraint(equalTo: containerLine.centerYAnchor),
+            leftLine.heightAnchor.constraint(equalToConstant: 1)
+        ]
+        
+        let rightLineConstraints = [
+            rightLine.trailingAnchor.constraint(equalTo: containerLine.trailingAnchor),
+            rightLine.leadingAnchor.constraint(equalTo: lblOr.trailingAnchor,constant: +10),
+            
+            rightLine.centerYAnchor.constraint(equalTo: containerLine.centerYAnchor),
+            rightLine.heightAnchor.constraint(equalToConstant: 1)
+        ]
+        
+        let labelOrlConstraints = [
+            lblOr.centerXAnchor.constraint(equalTo: containerLine.centerXAnchor),
+            lblOr.centerYAnchor.constraint(equalTo: containerLine.centerYAnchor),
+            lblOr.widthAnchor.constraint(equalToConstant: 40)
+        ]
+        
+        let btnGoogleConstraints = [
+            btnGoogle.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            btnGoogle.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            btnGoogle.topAnchor.constraint(equalTo: containerLine.bottomAnchor, constant:10.0),
+            btnGoogle.heightAnchor.constraint(equalToConstant: 50.0)
+        ]
+        
         // Ativo as constraints que criei acima
         
+        NSLayoutConstraint.activate(containerConstraint)
         NSLayoutConstraint.activate(titleConstraints)
         NSLayoutConstraint.activate(emailConstraints)
         NSLayoutConstraint.activate(passwordConstraints)
         NSLayoutConstraint.activate(btnSendConstraints)
         NSLayoutConstraint.activate(btnCreateAccountConstraints)
+        
+        NSLayoutConstraint.activate(containerLineConstraints)
+        NSLayoutConstraint.activate(leftLineConstraints)
+        NSLayoutConstraint.activate(rightLineConstraints)
+        NSLayoutConstraint.activate(labelOrlConstraints)
+        
+        NSLayoutConstraint.activate(btnGoogleConstraints)
     }
     
     override func viewDidAppear(_ animated: Bool) {

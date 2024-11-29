@@ -15,10 +15,9 @@ class LoadingButton: UIView{
     
     lazy var button : UIButton = {
         let btn = UIButton()
-        btn.setTitle("Enviar", for: .normal)
-        btn.setTitleColor(.black, for: .normal)
         btn.translatesAutoresizingMaskIntoConstraints = false
-        
+        btn.layer.cornerRadius = 10
+        btn.clipsToBounds = true
         return btn
     }()
     
@@ -72,6 +71,7 @@ class LoadingButton: UIView{
         let buttonConstraints = [
             button.leadingAnchor.constraint(equalTo: leadingAnchor),
             button.trailingAnchor.constraint(equalTo: trailingAnchor),
+            button.bottomAnchor.constraint(equalTo: bottomAnchor),
             button.heightAnchor.constraint(equalToConstant: 50.0)
         ]
         
